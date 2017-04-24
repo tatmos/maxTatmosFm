@@ -12,3 +12,6 @@ https://youtu.be/OOBiLowA-0o
 
 [動画]3opランダム
 https://youtu.be/e6MJR38jzeY
+
+[動画]3opフィードバック付き
+https://youtu.be/yus87CdiEts
