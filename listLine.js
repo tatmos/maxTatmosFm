@@ -1,8 +1,8 @@
 inlets = 1;
 outlets = 1;
 size = 18;
-var numStability = 0.001;
-var numInterval = 20;
+var numStability = 1;
+var numInterval = 2000;
 
 var tsk = new Task(mytask, this);
    tsk.interval = numInterval; // set the initial task interval
@@ -37,55 +37,64 @@ function interval(a)
 
 function mytask()
 {
+	if(numStability == 1)return;
+	
 	for(var i=0;i<size;i++)
 	{
-		if(i == 1 || i == 7 || i == 13)
+		if(i%6 == 0)
 		{
-			//	attack
-			data[i] = data[i]*numStability + (1-numStability)*(Math.floor( Math.random() * (1-numStability*20.0) ) - 0) ;
-			if(data[i] < -2 || data[i] > 2)
+			//	ratio
+			data[i] = data[i]*numStability + (1-numStability)*(Math.floor( Math.random() * (1-numStability*0.01) ) - 0) ;
+			if(data[i] < 0 || data[i] > 31)
+			{
+			   data[i] = Math.random() * 31;
+			}
+		} else 
+		if(i%6 == 1)
+		{
+			//	amp
+			data[i] = data[i]*numStability + (1-numStability)*(Math.floor( Math.random() * (1-numStability*0.01) ) - 0) ;
+			if(data[i] < 0.5 || data[i] > 2)
 			{
 			   data[i] = Math.random() * 2;
 			}
 		} else 
-		if(i == 2 || i == 8 || i == 14)
+		if(i%6 == 2)
 		{
 			//	attack
 			data[i] = data[i]*numStability + (1-numStability)*(Math.floor( Math.random() * (1-numStability*10.0) ) - 0) ;
-			if(data[i] < 0 || data[i] > 200)
+			if(data[i] < 0 || data[i] > 5000)
 			{
-			   data[i] = Math.random() * 100;
+			   data[i] = Math.random() * 5000;
 			}
 		} else 
-		if(i == 3 || i == 9 || i == 15)
+		if(i%6 == 3)
 		{
 			//	decay
 			data[i] = data[i]*numStability + (1-numStability)*(Math.floor( Math.random() * (1-numStability*20.0) ) - 0) ;
-			if(data[i] < 0 || data[i] > 500)
+			if(data[i] < 0 || data[i] > 1000)
 			{
-			   data[i] = Math.random() * 200;
-			}
-		}else 
-		if(i == 5 || i == 11 || i == 17)
-		{
-			//	release
-			data[i] = data[i]*numStability + (1-numStability)*(Math.floor( Math.random() * (1-numStability*100.0) ) - 0) ;
-			if(data[i] < 0 || data[i] > 500)
-			{
-			   data[i] = Math.random() * 200;
+			   data[i] = Math.random() * 1000;
 			}
 		} else 
-		if(i == 4 || i == 10 || i == 16)
+		if(i%6 == 4)
 		{
 			//	sustain
-			data[i] = data[i]*numStability + (1-numStability)*(Math.floor( Math.random() * (1-numStability*1.0) ) - numStability*1.0) ;
+			data[i] = data[i]*numStability + (1-numStability)*(Math.floor( Math.random() * (1-numStability*0.01) ) - numStability*1.0) ;
 			if(data[i] < 0 || data[i] > 1)
 			{
 			   data[i] = Math.random() * 1;
 			}
-		} else 
+			data[i] = 1;
+		} else
+		if(i%6 == 5)
 		{
-			data[i] = data[i]*numStability + (1-numStability)*(Math.floor( Math.random() * (1-numStability*31.0) ) - 31.0) ;
+			//	release
+			data[i] = data[i]*numStability + (1-numStability)*(Math.floor( Math.random() * (1-numStability*10.0) ) - 0) ;
+			if(data[i] < 0 || data[i] > 2000)
+			{
+			   data[i] = Math.random() * 2000;
+			}
 		}
 	}
 	outlet(0, data);
